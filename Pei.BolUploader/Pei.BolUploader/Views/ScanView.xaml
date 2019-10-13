@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:scan="Scandit.BarcodePicker.Unified"
+             mc:Ignorable="d"
+             x:Class="Pei.BolUploader.Views.ScanView">
+    <ContentView.Content>
+        <StackLayout x:Name="cont" Padding="20">
+
+            <ScrollView BackgroundColor="AliceBlue" Orientation="Horizontal" VerticalOptions="Start">
+                <StackLayout x:Name="ImageView" VerticalOptions="FillAndExpand" Orientation="Horizontal"></StackLayout>
+            </ScrollView>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Text="Bol Number" Grid.Row="0" Grid.Column="0"></Label>
+                <Entry Text="{Binding Path=item.BolNumber}" Grid.Row="0" Grid.Column="1"></Entry>
+
+
+                <Label Text="Doc Type" Grid.Row="1" Grid.Column="0"></Label>
+                <Entry Text="PEI BOL" Grid.Row="1" Grid.Column="1"></Entry>
+
+                <Label Text="Date" Grid.Row="2" Grid.Column="0"></Label>
+                <DatePicker x:Name="uploadDate" Grid.Row="2" Grid.Column="1" Date="{Binding Path=item.UploadDate}" Format="D"></DatePicker>
+
+
+            </Grid>
+
+
+           
+            <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
+                <Button Text="Upload" HorizontalOptions="Start"></Button>
+                <Button Text="Reset" HorizontalOptions="Start" Clicked="Button_Clicked_1"></Button>
+                <Button Text="Add Image" HorizontalOptions="EndAndExpand" Clicked="TakePhoto"></Button>
+                <Button Text="Scan" Clicked="Button_Clicked" HorizontalOptions="End"></Button>
+            </StackLayout>
+
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

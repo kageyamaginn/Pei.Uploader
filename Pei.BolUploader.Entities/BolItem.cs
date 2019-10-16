@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.ComponentModel;
 
 namespace Pei.BolUploader.Entities
 {
-    public class BolItem
+    public partial class BolItem
     {
         public BolItem()
         {
@@ -30,5 +31,11 @@ namespace Pei.BolUploader.Entities
         public Guid JobId { get; set; }
         public DateTime CreateDate { get; set; }
         public String Status { get; set; }
+        public String Message { get; set; }
+        public String BusinessKey { get; set; }
+        /// <summary>
+        /// indicate which step is processing
+        /// </summary>
+        public int ProcessIndex { get; set; }
     }
 }

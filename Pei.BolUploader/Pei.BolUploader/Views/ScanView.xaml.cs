@@ -13,6 +13,7 @@ using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System.IO;
 using Pei.BolUploader.Entities;
+using Pei.BolUploader.Services;
 
 namespace Pei.BolUploader.Views
 {
@@ -36,11 +37,18 @@ namespace Pei.BolUploader.Views
             settings.CameraPositionPreference = CameraPosition.Back;
             
             //settings.ActiveScanningAreaPortrait = new Rect(0.05, 0.45, 0.9, 0.1);
-            ScanditService.BarcodePicker.ScanOverlay.GuiStyle = GuiStyle.Laser;
+            ScanditService.BarcodePicker.ScanOverlay.GuiStyle = GuiStyle.Rectangle;
             // Enable symbologies that you want to scan.
-            settings.EnableSymbology(Symbology.Ean13, true);
-            settings.EnableSymbology(Symbology.Upca, true);
+            foreach (Symbology s in Enum.GetValues(typeof(Symbology)))
+            {
+                settings.EnableSymbology(s, true);
+            }
+            //settings.EnableSymbology(Symbology.Unknown, true);
+            //settings.EnableSymbology(Symbology.Upca, true);
+            //settings.CodeRejectionEnabled = false;
             //settings.EnableSymbology(Symbology.Qr, true);
+            //settings.MaxNumberOfCodesPerFrame = 1;
+            
             ScanditService.BarcodePicker.DidScan += OnDidScan;
             await ScanditService.BarcodePicker.ApplySettingsAsync(settings);
             // Start the scanning process.
@@ -65,6 +73,8 @@ namespace Pei.BolUploader.Views
 
         private void Button_Clicked(object sender, EventArgs e)
         {
+            var ps = Application.Current.Properties;
+            (this.Parent as ContentPage).DisplayAlert("title", ps.Count.ToString(), "ok");
             BeginScan();
         }
         
@@ -112,12 +122,17 @@ namespace Pei.BolUploader.Views
 
         }
 
-        private void Button_Clicked_1(object sender, EventArgs e)
+        private void Reset(object sender, EventArgs e)
         {
             vm.SetBolNumber("");
             vm.item.Images.Clear();
             ImageView.Children.Clear();
 
+        }
+
+        private void btnUpload_Clicked(object sender, EventArgs e)
+        {
+            JobManager.Start(new BolUploadJob() { JobId = Guid.NewGuid(),Data=vm.item, CreateDate=DateTime.Now, ProcessIndex=0, Status="Pending" });
         }
     }
     public class ViewMode:INotifyPropertyChanged

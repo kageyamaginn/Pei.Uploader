@@ -8,10 +8,6 @@
              x:Class="Pei.BolUploader.Views.ScanView">
     <ContentView.Content>
         <StackLayout x:Name="cont" Padding="20">
-
-            <ScrollView BackgroundColor="AliceBlue" Orientation="Horizontal" VerticalOptions="Start">
-                <StackLayout x:Name="ImageView" VerticalOptions="FillAndExpand" Orientation="Horizontal"></StackLayout>
-            </ScrollView>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -36,11 +32,13 @@
 
             </Grid>
 
+            <ScrollView BackgroundColor="AliceBlue" Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                <StackLayout x:Name="ImageView" VerticalOptions="FillAndExpand" Orientation="Horizontal"></StackLayout>
+            </ScrollView>
 
-           
-            <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
-                <Button Text="Upload" HorizontalOptions="Start"></Button>
-                <Button Text="Reset" HorizontalOptions="Start" Clicked="Button_Clicked_1"></Button>
+            <StackLayout Orientation="Horizontal" VerticalOptions="End">
+                <Button x:Name="btnUpload" Text="Upload" HorizontalOptions="Start" Clicked="btnUpload_Clicked"></Button>
+                <Button Text="Reset" HorizontalOptions="Start" Clicked="Reset"></Button>
                 <Button Text="Add Image" HorizontalOptions="EndAndExpand" Clicked="TakePhoto"></Button>
                 <Button Text="Scan" Clicked="Button_Clicked" HorizontalOptions="End"></Button>
             </StackLayout>

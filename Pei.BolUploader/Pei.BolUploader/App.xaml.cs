@@ -21,7 +21,7 @@ namespace Pei.BolUploader
             MainPage = new WelPage();
         }
 
-        protected override void OnStart()
+        protected async override void OnStart()
         {
             // Handle when your app starts
        
